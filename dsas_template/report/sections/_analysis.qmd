@@ -1,77 +1,48 @@
-# Methods *(optional, only if you have models)*
+# Methods
 
-::: {.callout-note}
-## When to Include This Section
+While our project is primarily an exploratory data analysis (EDA), we used a statistical method to quantify the relationship between a movie's budget and its IMDb rating.
 
-Include a Methods section if you:
+## Pearson Correlation Coefficient
 
-- Apply statistical models (linear regression, logistic regression, etc.)
-- Perform hypothesis testing
-- Use machine learning algorithms
-- Conduct advanced statistical analyses
+To answer the question, "Is there a correlation between a film’s budget and its IMDb rating?", we used the **Pearson correlation coefficient**.
 
-If your project is primarily exploratory (descriptive statistics and visualizations only), you can skip this section or keep it minimal.
-:::
+-   **Why this method?** The Pearson correlation coefficient (r) is a measure of linear association between two continuous variables. It is the most common method for measuring correlation and is ideal for understanding both the strength and direction of a relationship. Our goal was to see if a linear relationship exists where higher budgets correspond to higher ratings.
 
-Outline the statistical methods or models selected, along with the rationale for their selection.
+-   **Assumptions**: The key assumptions for Pearson correlation are that the variables are approximately normally distributed and that the relationship between them is linear. Our EDA scatter plot (`@fig-budget-rating-correlation` in the EDA section) showed that while the relationship is weak, it doesn't appear to be strongly non-linear. We also used a log scale for the budget to handle the wide range of values, which helps in visualizing the linear trend.
 
-**Important**: Don't just show model output, **explain your choices**:
-
-- **Why** did you choose this particular method?
-- **What** assumptions does it make, and do your data meet them?
-- **How** does this method help answer your research questions?
+-   **How it answers the question**: The coefficient ranges from -1 (perfect negative linear correlation) to +1 (perfect positive linear correlation), with 0 indicating no linear correlation. By calculating this value, we can quantitatively assess the "money vs. quality" debate.
 
 ```{python}
-#| label: initial-analysis
+#| label: tbl-correlation-calculation
+#| tbl-cap: "Pearson correlation between movie budget and IMDb rating"
 
-from sklearn.linear_model import LinearRegression
-import numpy as np
 import pandas as pd
+from quarto_runtime import project_root
 
-model = LinearRegression()
+# Load the cleaned dataset
+processed_data_path = project_root / "data" / "processed" / "Movie_Data_1920_to_2025_cleaned.csv"
+data = pd.read_csv(processed_data_path, skipinitialspace=True)
 
-# Prepare the data (using dummy variables for categorical instructor variable)
-X = np.array(pd.get_dummies(data_clean[["instructor"]], drop_first=True))
-y = np.array(data_clean["performance"])
+# Filter out rows with missing budget or rating for this analysis
+budget_rating_data = data.dropna(subset=['budget', 'rating'])
 
-# Fit the model
-model.fit(X, y)
+# Calculate the Pearson correlation
+correlation = budget_rating_data['budget'].corr(budget_rating_data['rating'])
 
-print("=== Linear Regression Results ===")
-print(f"Coefficients: {model.coef_}")
-print(f"Intercept: {model.intercept_:.4f}")
-print(f"R-squared: {model.score(X, y):.4f}")
+print("=== Pearson Correlation Result ===")
+print(f"Correlation coefficient (r): {correlation:.4f}")
 ```
-
-::: {.callout-important}
-## Interpretation is Essential!
-
-After showing model results, you **must interpret them**:
-
-**Example interpretation:**
-
-"The Poisson regression model identifies three significant predictors of insurance claim frequency. Vehicle age shows a positive coefficient (β = 0.08, p < 0.01), indicating that each additional year of vehicle age increases expected claims by approximately 8%. Driver age has a negative coefficient (β = -0.02, p < 0.001), meaning older drivers file fewer claims. The urban location dummy variable (β = 0.15, p < 0.05) suggests urban drivers have 15% higher claim rates than rural drivers.
-
-However, the model's pseudo-R² of 0.22 indicates that these predictors explain only 22% of claim variation. Unobserved factors like driving behavior, road conditions, and individual risk tolerance likely account for the remaining variation. This suggests that while demographic variables are useful for pricing, insurers should not rely solely on them for risk assessment."
-
-**Remember**: Model output without interpretation demonstrates technical skills but not understanding!
-:::
 
 # Findings and Discussion
 
-Provide your results or observations from applying statistical methods, then **discuss them thoroughly** in the context of your research questions and project goals.
+Our analysis aimed to determine if a higher budget translates to a better-received film, as measured by IMDb ratings.
 
-::: {.callout-tip}
-## Structure Your Discussion
+-   **Finding**: The Pearson correlation coefficient between a movie's budget and its IMDb rating is **`{python} f'{correlation:.4f}'`**, as calculated in @tbl-correlation-calculation.
 
-A good discussion:
+-   **Interpretation**: A correlation coefficient of `{python} f'{correlation:.4f}'` indicates a **very weak positive linear relationship**. This value is extremely close to zero, which suggests that there is virtually no meaningful linear association between how much a movie costs to make and how much the audience likes it.
 
-1. **States the finding** clearly (reference tables/figures)
-2. **Interprets the result** (what does it mean?)
-3. **Connects to research questions** (how does it answer your questions?)
-4. **Relates to domain knowledge** (does it align with theory or prior research?)
-5. **Acknowledges limitations** (what are the caveats?)
-6. **Suggests implications** (what should we do with this information?)
+-   **Connection to Research Question**: This directly answers our third sub-question. While there might be a perception that big-budget films are "better," our data does not support this. The lack of a strong correlation implies that financial investment is not a reliable predictor of audience appreciation.
 
-**Example**: "Our regression analysis shows that experience significantly predicts performance (β = 0.01, p < 0.001), supporting our hypothesis that skill develops over time. This aligns with learning curve theory in organizational psychology and suggests that training programs should emphasize sustained practice. However, the wide confidence interval (95% CI: [0.005, 0.015]) indicates substantial individual variation, meaning experience alone cannot guarantee high performance."
-:::
+-   **Domain Context**: This finding is significant for the film industry. It challenges the "blockbuster formula" that often relies on massive budgets to generate hits. It suggests that other factors—such as the quality of the script, the director's vision, and the actors' performances—are far more critical drivers of a film's quality and reception. It also validates the success of low-budget independent films that achieve high ratings, proving that creativity can triumph over capital.
+
+-   **Limitations**: It is important to note that correlation does not imply causation. Furthermore, this analysis only measures a *linear* relationship. It is possible that a more complex, non-linear relationship exists between budget and rating, though our EDA did not suggest one.
