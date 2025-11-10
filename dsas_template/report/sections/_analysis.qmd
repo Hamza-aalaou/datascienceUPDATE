@@ -33,6 +33,14 @@ print("=== Pearson Correlation Result ===")
 print(f"Correlation coefficient (r): {correlation:.4f}")
 ```
 
+## Linear Regression Line
+
+In addition to the Pearson correlation, we visualized the relationship between budget and rating using a **linear regression line** on our scatter plot (@fig-budget-rating-correlation).
+
+-   **Why this method?** A regression line provides a visual representation of the trend in the data. It is the line that best fits the data points, minimizing the overall distance from the points to the line. This makes it an excellent tool for visually assessing the direction and strength of a linear relationship.
+
+-   **How it complements the analysis**: While the Pearson coefficient gives a single number, the regression line on the scatter plot shows how the trend plays out across the entire range of data. The flatness of the line in our plot visually confirms the very weak correlation indicated by the coefficient, making the finding more intuitive and impactful.
+
 # Findings and Discussion
 
 Our analysis aimed to determine if a higher budget translates to a better-received film, as measured by IMDb ratings.

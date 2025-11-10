@@ -6,7 +6,7 @@ This project set out to analyze the evolution of the global film industry from 1
 
 Our main findings reveal a dynamic and evolving industry:
 
--   **Genre Trends**: While **Drama** and **Comedy** remain consistently popular, the 21st century has seen a significant rise in the production of **Action** and **Thriller** films, likely driven by advancements in technology and a global market for spectacle.
+-   **Genre Trends**: While **Drama** and **Comedy** have remained consistently popular, other genres have seen more dynamic shifts. **Documentaries** saw a notable rise in the 2000s, while **Action** and **Thriller** films, after a dip, resurged in the 2010s, indicating a shifting focus between real-world stories and spectacle-driven blockbusters.
 -   **Economic Shifts**: We observed a clear and steady increase in the median movie **budget** over the past three decades, confirming that filmmaking has become a more expensive endeavor.
 -   **Quality vs. Cost**: Our analysis showed a **very weak positive correlation** between a film's budget and its IMDb rating. This critical insight suggests that financial investment does not guarantee audience appreciation; creativity and storytelling remain paramount.
 -   **Film Duration**: We found a slight but consistent upward trend in the average movie **duration**, supporting the common perception that films are getting longer.

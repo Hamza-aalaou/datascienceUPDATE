@@ -11,15 +11,16 @@ Connect your project to real-world actuarial or insurance problems. For example,
 
 ## Research Questions
 Our primary research question is:
-- How have public tastes and film characteristics (genres, budget, origins, duration) evolved in the global film industry between 1990 and 2025?
+- How do public tastes and movie characteristics (such as genres, budgets, durations, and origins) vary across time in the global film industry between 1990 and 2025?
 
 To address this, we will investigate the following sub-questions, each providing a different lens through which to view the industry's evolution:
-- **Which film genres dominated each decade?** This question helps us understand changing cultural tastes and identify which storytelling formats were most popular in different eras.
-- **How have movie budgets evolved over time?** Analyzing budget trends reveals the economic shifts in the film industry, from the rise of blockbusters to the impact of new technologies.
-- **Is there a correlation between a film’s budget and its IMDb rating?** This explores whether higher financial investment typically translates into better audience reception, a key consideration for producers.
-- **Are modern films longer than those from the 1990s?** The answer to this question can reflect changes in storytelling norms and audience viewing habits.
-- **Which countries have dominated global film production over different periods?** This highlights the geographical shifts in filmmaking, showing the influence of globalization and the rise of new markets.
-- **Do the highest-rated films consistently come from the same regions?** This question examines whether critical acclaim is concentrated in specific cultural or geographical areas.
+
+-   **Which film genres dominated each decade?** This question helps us understand changing cultural tastes and identify which storytelling formats were most popular in different eras.
+-   **How have movie budgets evolved over time?** Analyzing budget trends reveals the economic shifts in the film industry, from the rise of blockbusters to the impact of new technologies.
+-   **Is there a correlation between a film’s budget and its IMDb rating?** This explores whether higher financial investment typically translates into better audience reception, a key consideration for producers.
+-   **Are modern films longer than those from the 1990s?** The answer to this question can reflect changes in storytelling norms and audience viewing habits.
+-   **Which countries have dominated global film production over different periods?** This highlights the geographical shifts in filmmaking, showing the influence of globalization and the rise of new markets.
+-   **Do the highest-rated films consistently come from the same regions?** This question examines whether critical acclaim is concentrated in specific cultural or geographical areas.
 
 ::: {.callout-important}
 ## Research Question Quality

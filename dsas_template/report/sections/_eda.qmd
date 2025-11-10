@@ -60,7 +60,7 @@ top_genres_per_decade = (
 )
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(6.75, 4.5))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.barplot(data=top_genres_per_decade, x='decade', y='proportion', hue='primary_genre', ax=ax)
 
@@ -97,9 +97,12 @@ median_budget_per_year = data.groupby(data['release_date'].dt.year)['budget'].me
 median_budget_per_year.columns = ['year', 'median_budget']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(6.75, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.lineplot(data=median_budget_per_year, x='year', y='median_budget', ax=ax, marker='o', color='purple')
+
+# Add a trend line to show the overall increase
+sns.regplot(data=median_budget_per_year, x='year', y='median_budget', ax=ax, scatter=False, color='red', line_kws={'linestyle':'--'})
 
 # Customize plot
 ax.set_title("Median Movie Budget Evolution (1990-2025)", 
@@ -132,7 +135,7 @@ A central question for any film producer is whether more money leads to a better
 budget_rating_data = data.dropna(subset=['budget', 'rating'])
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(4.5, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.regplot(data=budget_rating_data, x='budget', y='rating',
             ax=ax, scatter_kws={'alpha': 0.2, 's': 20},
@@ -177,9 +180,12 @@ avg_duration_per_year = data.groupby(data['release_date'].dt.year)['duration_min
 avg_duration_per_year.columns = ['year', 'avg_duration']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(6.75, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.lineplot(data=avg_duration_per_year, x='year', y='avg_duration', ax=ax, marker='.', color='darkgreen')
+
+# Add a trend line to show the overall increase
+sns.regplot(data=avg_duration_per_year, x='year', y='avg_duration', ax=ax, scatter=False, color='red', line_kws={'linestyle':'--'})
 
 # Customize plot
 ax.set_title("Average Movie Duration Evolution (1990-2025)", 
@@ -234,7 +240,7 @@ top_countries_per_decade = (
 )
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(6.75, 4.5))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.barplot(data=top_countries_per_decade, x='decade', y='count', hue='primary_country', ax=ax, palette='viridis')
 
@@ -273,7 +279,7 @@ top_rated_country_counts = top_rated_movies['primary_country'].value_counts().nl
 top_rated_country_counts.columns = ['country', 'count']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(5.6, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.barplot(data=top_rated_country_counts, x='count', y='country', ax=ax, palette='plasma')
 

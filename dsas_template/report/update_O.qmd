@@ -41,15 +41,16 @@ The goal of this project is to analyze the evolution of the global film industry
 
 ## Research Questions
 Our primary research question is:
-- How have public tastes and film characteristics (genres, budget, origins, duration) evolved in the global film industry between 1990 and 2025?
+- How do public tastes and movie characteristics (such as genres, budgets, durations, and origins) vary across time in the global film industry between 1990 and 2025?
 
 To address this, we will investigate the following sub-questions, each providing a different lens through which to view the industry's evolution:
-- **Which film genres dominated each decade?** This question helps us understand changing cultural tastes and identify which storytelling formats were most popular in different eras.
-- **How have movie budgets evolved over time?** Analyzing budget trends reveals the economic shifts in the film industry, from the rise of blockbusters to the impact of new technologies.
-- **Is there a correlation between a film’s budget and its IMDb rating?** This explores whether higher financial investment typically translates into better audience reception, a key consideration for producers.
-- **Are modern films longer than those from the 1990s?** The answer to this question can reflect changes in storytelling norms and audience viewing habits.
-- **Which countries have dominated global film production over different periods?** This highlights the geographical shifts in filmmaking, showing the influence of globalization and the rise of new markets.
-- **Do the highest-rated films consistently come from the same regions?** This question examines whether critical acclaim is concentrated in specific cultural or geographical areas.
+
+-   **Which film genres dominated each decade?** This question helps us understand changing cultural tastes and identify which storytelling formats were most popular in different eras.
+-   **How have movie budgets evolved over time?** Analyzing budget trends reveals the economic shifts in the film industry, from the rise of blockbusters to the impact of new technologies.
+-   **Is there a correlation between a film’s budget and its IMDb rating?** This explores whether higher financial investment typically translates into better audience reception, a key consideration for producers.
+-   **Are modern films longer than those from the 1990s?** The answer to this question can reflect changes in storytelling norms and audience viewing habits.
+-   **Which countries have dominated global film production over different periods?** This highlights the geographical shifts in filmmaking, showing the influence of globalization and the rise of new markets.
+-   **Do the highest-rated films consistently come from the same regions?** This question examines whether critical acclaim is concentrated in specific cultural or geographical areas.
 
 # Data
 
@@ -144,7 +145,7 @@ top_genres_per_decade = (
 )
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(5.1, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.barplot(data=top_genres_per_decade, x='decade', y='proportion', hue='primary_genre', ax=ax)
 
@@ -181,9 +182,12 @@ median_budget_per_year = data.groupby(data['release_date'].dt.year)['budget'].me
 median_budget_per_year.columns = ['year', 'median_budget']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(5.1, 2.6))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.lineplot(data=median_budget_per_year, x='year', y='median_budget', ax=ax, marker='o', color='purple')
+
+# Add a trend line to show the overall increase
+sns.regplot(data=median_budget_per_year, x='year', y='median_budget', ax=ax, scatter=False, color='red', line_kws={'linestyle':'--'})
 
 # Customize plot
 ax.set_title("Median Movie Budget Evolution (1990-2025)", 
@@ -216,7 +220,7 @@ A central question for any film producer is whether more money leads to a better
 budget_rating_data = data.dropna(subset=['budget', 'rating'])
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(3.4, 2.6))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.regplot(data=budget_rating_data, x='budget', y='rating',
             ax=ax, scatter_kws={'alpha': 0.2, 's': 20},
@@ -261,9 +265,12 @@ avg_duration_per_year = data.groupby(data['release_date'].dt.year)['duration_min
 avg_duration_per_year.columns = ['year', 'avg_duration']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(5.1, 2.6))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.lineplot(data=avg_duration_per_year, x='year', y='avg_duration', ax=ax, marker='.', color='darkgreen')
+
+# Add a trend line to show the overall increase
+sns.regplot(data=avg_duration_per_year, x='year', y='avg_duration', ax=ax, scatter=False, color='red', line_kws={'linestyle':'--'})
 
 # Customize plot
 ax.set_title("Average Movie Duration Evolution (1990-2025)", 
@@ -318,7 +325,7 @@ top_countries_per_decade = (
 )
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(5.1, 3.4))
+fig, ax = plt.subplots(figsize=(8.25, 5.25))
 
 sns.barplot(data=top_countries_per_decade, x='decade', y='count', hue='primary_country', ax=ax, palette='viridis')
 
@@ -357,7 +364,7 @@ top_rated_country_counts = top_rated_movies['primary_country'].value_counts().nl
 top_rated_country_counts.columns = ['country', 'count']
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(4.2, 2.6))
+fig, ax = plt.subplots(figsize=(8.25, 4.5))
 
 sns.barplot(data=top_rated_country_counts, x='count', y='country', ax=ax, palette='plasma')
 
@@ -413,6 +420,14 @@ print("Pearson Correlation Between Movie Budget and IMDb Rating")
 print(correlation_df.to_string(index=False))
 ```
 
+## Linear Regression Line
+
+In addition to the Pearson correlation, we visualized the relationship between budget and rating using a **linear regression line** on our scatter plot (@fig-budget-rating-correlation).
+
+-   **Why this method?** A regression line provides a visual representation of the trend in the data. It is the line that best fits the data points, minimizing the overall distance from the points to the line. This makes it an excellent tool for visually assessing the direction and strength of a linear relationship.
+
+-   **How it complements the analysis**: While the Pearson coefficient gives a single number, the regression line on the scatter plot shows how the trend plays out across the entire range of data. The flatness of the line in our plot visually confirms the very weak correlation indicated by the coefficient, making the finding more intuitive and impactful.
+
 # Findings and Discussion
 
 Our analysis aimed to determine if a higher budget translates to a better-received film, as measured by IMDb ratings.
@@ -435,7 +450,7 @@ This project set out to analyze the evolution of the global film industry from 1
 
 Our main findings reveal a dynamic and evolving industry:
 
--   **Genre Trends**: While **Drama** and **Comedy** remain consistently popular, the 21st century has seen a significant rise in the production of **Action** and **Thriller** films, likely driven by advancements in technology and a global market for spectacle.
+-   **Genre Trends**: While **Drama** and **Comedy** have remained consistently popular, other genres have seen more dynamic shifts. **Documentaries** saw a notable rise in the 2000s, while **Action** and **Thriller** films, after a dip, resurged in the 2010s, indicating a shifting focus between real-world stories and spectacle-driven blockbusters.
 -   **Economic Shifts**: We observed a clear and steady increase in the median movie **budget** over the past three decades, confirming that filmmaking has become a more expensive endeavor.
 -   **Quality vs. Cost**: Our analysis showed a **very weak positive correlation** between a film's budget and its IMDb rating. This critical insight suggests that financial investment does not guarantee audience appreciation; creativity and storytelling remain paramount.
 -   **Film Duration**: We found a slight but consistent upward trend in the average movie **duration**, supporting the common perception that films are getting longer.
